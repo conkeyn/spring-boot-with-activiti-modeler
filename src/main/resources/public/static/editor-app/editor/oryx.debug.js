@@ -206,7 +206,7 @@ var ERDF = {
 		var links = heads[0].getElementsByTagNameNS(XMLNS.XHTML, 'link');
 		var metas = heads[0].getElementsByTagNameNS(XMLNS.XHTML, 'meta');
 
-		// processes links first, since they could contain schema definitions.
+		// process links first, since they could contain schema definitions.
 		$A(links).each(function(link) {
 			var properties = link.getAttribute('rel');
 			var reversedProperties = link.getAttribute('rev');
@@ -1258,10 +1258,10 @@ function DMCommandHandler(nextHandler) {
 	};
 	
 	/**
-	 * Handles a command. The abstract method processes() is called with the
-	 * command object that has been passed. If the processes method catches the
+	 * Handles a command. The abstract method process() is called with the
+	 * command object that has been passed. If the process method catches the
 	 * command (returns true on completion), the handle() method returns true.
-	 * If the processes() method doesn't catch the command, the next handler will
+	 * If the process() method doesn't catch the command, the next handler will
 	 * be invoked.
 	 * @param {Object} command The command object to be processed.
 	 */
@@ -1270,9 +1270,9 @@ function DMCommandHandler(nextHandler) {
 	}
 	
 	/**
-	 * Empty processes() method returning false. If javascript knew abstract
+	 * Empty process() method returning false. If javascript knew abstract
 	 * class members, this would be one.
-	 * @param {Object} command The command object to processes.
+	 * @param {Object} command The command object to process.
 	 */
 	this.process = function(command) { return false; };
 };
@@ -1467,16 +1467,16 @@ ResourceManager = {
 		 * behaviour now.
 		 */
 		
-//		// find the processes url.		
+//		// find the process url.		
 //		var processUrl = undefined;
 //		
 //		var urls = DataManager.query(
 //			new ERDF.Resource('#'+this.__id),
-//			{prefix: 'raziel', name: 'processes'},
+//			{prefix: 'raziel', name: 'process'},
 //			undefined
 //		);
 //		
-//		if(urls.length == 0) { throw 'The resource with the id ' +id+ ' has no processes url.'};
+//		if(urls.length == 0) { throw 'The resource with the id ' +id+ ' has no process url.'};
 //		
 //		urls.each( function(triple) {
 //			
@@ -1486,7 +1486,7 @@ ResourceManager = {
 //		
 //		this.__processUrl = processUrl;
 //
-//		// convenience function for getting the processes url.
+//		// convenience function for getting the process url.
 //		this.processUrl = function() {
 //			return this.__processUrl;
 //		}
@@ -10644,7 +10644,7 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
 	},
 	
 	/**
-	 * Returns an SVG document of the current processes.
+	 * Returns an SVG document of the current process.
 	 * @param {Boolean} escapeText Use true, if you want to parse it with an XmlParser,
 	 * 					false, if you want to use the SVG document in browser on client side.
 	 */
@@ -23274,8 +23274,8 @@ new function(){
 		},
 	
 		/**
-		 * Handle the layouting of a sub processes.
-		 * Mainly to adjust the child dockers of a sub processes. 
+		 * Handle the layouting of a sub process.
+		 * Mainly to adjust the child dockers of a sub process. 
 		 *
 		 */
 		handleSubProcess : function(option) {

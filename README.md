@@ -2,7 +2,7 @@
 
 ## 版本
 
-Spring boot : 1.5.3.RELEASE
+Spring boot : 2.1.5.RELEASE
 
 Activiti Modeler : 5.22.0
 
@@ -15,7 +15,7 @@ http://localhost:8081/swagger-ui.html
 ```
 此页面由Swagger生成。
 
-3、 在swagger页面先后调用“新建一个空模型”和“获取所有模型”，得到刚刚新建的模型的ID
+3、 **在swagger页面先后调用“新建一个空模型”和“获取所有模型”，得到刚刚新建的模型的ID**
 
 4、打开Activiti modeler编辑器：
 
