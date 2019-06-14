@@ -14,3 +14,6 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
