@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -34,6 +35,7 @@ import java.util.Map;
  * 流程模型Model操作相关
  * Created by chenhai on 2017/5/23.
  */
+@Log4j
 @Api(description = "流程模型Model操作相关", tags = {"modeler"})
 @RestController
 @RequestMapping("models")
@@ -54,7 +56,7 @@ public class ModelController {
      */
     @ApiOperation(value = "新建一个空模型")
     @PostMapping
-    public Map<String,Object> newModel() throws UnsupportedEncodingException {
+    public Map<String, Object> newModel() throws UnsupportedEncodingException {
         RepositoryService repositoryService = processEngine.getRepositoryService();
         //初始化一个空模型
         Model model = repositoryService.newModel();
@@ -162,10 +164,10 @@ public class ModelController {
     public void deployUploadedFile(
             @RequestParam("uploadfile") MultipartFile uploadfile) {
         InputStreamReader in = null;
+        String fileName = uploadfile.getOriginalFilename();
         try {
             try {
                 boolean validFile = false;
-                String fileName = uploadfile.getOriginalFilename();
                 if (fileName.endsWith(".bpmn20.xml") || fileName.endsWith(".bpmn")) {
                     validFile = true;
 
@@ -211,12 +213,12 @@ public class ModelController {
                 } else {
 //                    notificationManager.showErrorNotification(Messages.MODEL_IMPORT_INVALID_FILE,
 //                            i18nManager.getMessage(Messages.MODEL_IMPORT_INVALID_FILE_EXPLANATION));
-                    System.out.println("err3");
+                    log.warn("The file " + fileName + " is not supported!");
                 }
             } catch (Exception e) {
                 String errorMsg = e.getMessage().replace(System.getProperty("line.separator"), "<br/>");
 //                notificationManager.showErrorNotification(Messages.MODEL_IMPORT_FAILED, errorMsg);
-                System.out.println("err4");
+                log.error(e.getMessage(), e);
             }
         } finally {
             if (in != null) {
@@ -224,24 +226,24 @@ public class ModelController {
                     in.close();
                 } catch (IOException e) {
 //                    notificationManager.showErrorNotification("Server-side error", e.getMessage());
-                    System.out.println("err5");
+                    log.error(e.getMessage(), e);
                 }
             }
         }
     }
 
 
-    private Map<String,Object> success() {
-        Map<String,Object> map = new HashMap();
-        map.put("status",true);
-        map.put("reason","操作成功");
+    private Map<String, Object> success() {
+        Map<String, Object> map = new HashMap();
+        map.put("status", true);
+        map.put("reason", "操作成功");
         return map;
     }
 
     private Map<String, Object> failed(String reason) {
-        Map<String,Object> map = new HashMap();
-        map.put("status",false);
-        map.put("reason","操作失败："+reason);
+        Map<String, Object> map = new HashMap();
+        map.put("status", false);
+        map.put("reason", "操作失败：" + reason);
         return map;
     }
 
